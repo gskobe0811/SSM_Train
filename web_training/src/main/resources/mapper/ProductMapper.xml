@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gushuai.ssm.mapper.ProductMapper">
+
+    <select id="queryAllProducts" resultType="com.gushuai.ssm.pojo.Product">
+        SELECT * FROM commodity
+    </select>
+
+    <insert id="addProduct" parameterType="com.gushuai.ssm.pojo.Product" useGeneratedKeys="true" keyProperty="id">
+       INSERT INTO commodity(productName,price,detail,productCount,productType,picture) VALUES(#{productName},#{price},#{detail},
+       #{productCount},#{productType},#{picture});
+    </insert>
+
+    <select id="queryProductById" parameterType="int" resultType="com.gushuai.ssm.pojo.Product">
+       SELECT * FROM commodity WHERE id = #{value};
+    </select>
+
+    <update id="updateProduct" parameterType="com.gushuai.ssm.pojo.Product">
+            UPDATE commodity SET productName = #{productName},price = #{price},detail = #{detail},
+            productCount = #{productCount},productType = #{productType},picture = #{picture} WHERE id = #{id};
+    </update>
+
+    <delete id="deleteProduct" parameterType="int">
+            DELETE FROM commodity WHERE id = #{id};
+    </delete>
+
+    <select id="queryIdByProName" parameterType="java.lang.String" resultType="int">
+        SELECT id FROM commodity WHERE productName = #{productName}
+    </select>
+
+
+
+    <select id="queryCountsByProId" parameterType="int" resultType="int">
+        SELECT productCount FROM commodity WHERE id = #{value};
+    </select>
+
+    <update id="updateProCounts">
+        UPDATE commodity set productCount = #{0} WHERE id = #{1}
+    </update>
+
+</mapper>

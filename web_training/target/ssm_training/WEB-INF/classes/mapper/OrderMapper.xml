@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gushuai.ssm.mapper.OrderMapper">
+
+   <select id="queryIdByProName" parameterType="java.lang.String" resultType="int">
+       SELECT id FROM commodity WHERE productName = #{productName}
+   </select>
+
+
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId"
+            parameterType="com.gushuai.ssm.pojo.Order">
+       INSERT INTO orders(userId,commodityId,orderTime,orderPrice,address,telPhone,state,proCount,proName,username,labelBuy) VALUES(
+	#{userId},#{commodityId},#{orderTime},#{orderPrice},#{address},#{telPhone},#{state},#{proCount},#{proName},#{username},#{labelBuy}
+)
+
+    </insert>
+
+    <select id="queryAllOrders" resultType="com.gushuai.ssm.pojo.Order">
+        SELECT * FROM orders
+    </select>
+
+    <select id="queryOrdersById" parameterType="int" resultType="com.gushuai.ssm.pojo.Order">
+        select * FROM orders WHERE userId = #{userId};
+    </select>
+
+
+
+
+    <select id="selectStateById" parameterType="int" resultType="java.lang.String">
+        SELECT state FROM orders WHERE id = #{id}
+    </select>
+
+    <update id="updateOrderStateById">
+        UPDATE orders set state = #{1} WHERE id = #{0}
+    </update>
+
+    <insert id="insertCart" parameterType="com.gushuai.ssm.pojo.Cart" useGeneratedKeys="true" keyProperty="id">
+
+        INSERT INTO cart(proName,proPrice,proCount,userId) VALUES (#{proName},#{proPrice},#{proCount},#{userId})
+    </insert>
+
+
+    <select id="queryCarts" resultType="com.gushuai.ssm.pojo.Cart">
+        SELECT * FROM cart
+    </select>
+
+
+    <delete id="deleteCartItem" parameterType="int">
+        DELETE FROM cart WHERE id = #{id}
+    </delete>
+
+    <select id="queryCartById" parameterType="int" resultType="com.gushuai.ssm.pojo.Cart">
+        SELECT * FROM cart WHERE id = #{id}
+    </select>
+
+    <select id="queryCartsByUsername" parameterType="int" resultType="com.gushuai.ssm.pojo.Cart">
+        SELECT * FROM cart WHERE userId = #{userId}
+    </select>
+
+    <select id="queryLableById" parameterType="int" resultType="int">
+        SELECT labelBuy FROM orders WHERE id = #{id}
+    </select>
+
+
+    <select id="queryProIdByOrderId" parameterType="int" resultType="int">
+        SELECT commodityId FROM orders WHERE id = #{id}
+    </select>
+
+    <select id="queryCountsByOrderId" parameterType="int" resultType="int">
+           SELECT proCount FROM orders WHERE id = #{id}
+    </select>
+
+
+    <select id="queryUserIdByOrderId" parameterType="int" resultType="int">
+        SELECT userId FROM orders WHERE id = #{id}
+    </select>
+
+
+
+
+</mapper>

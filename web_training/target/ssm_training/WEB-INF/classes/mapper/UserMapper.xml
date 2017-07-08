@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gushuai.ssm.mapper.UserMapper">
+
+    <select id="findUserById"  parameterType="int" resultType="com.gushuai.ssm.pojo.User">
+        SELECT * FROM user WHERE id = #{value}
+    </select>
+
+    <select id="queryPwdByUsername" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT password FROM `user` WHERE username = #{value}
+    </select>
+
+    <select id="queryUsername" resultType="java.lang.String">
+        SELECT username FROM `user`
+    </select>
+
+    <select id="queryRole" parameterType="java.lang.String" resultType="int">
+        SELECT userType FROM `user` WHERE username = #{value}
+    </select>
+
+    <insert id="insertUser" parameterType="com.gushuai.ssm.pojo.User">
+       INSERT INTO user(username,password,address,telPhone,userType) VALUES(#{username},#{password},#{address},#{telPhone},3);
+    </insert>
+
+    <select id="queryAll" resultType="com.gushuai.ssm.pojo.User">
+        SELECT * FROM user
+    </select>
+
+    <delete id="deleteItem" parameterType="int">
+       DELETE FROM user WHERE id = #{value}
+    </delete>
+
+    <update id="updateUsdAndPwd" parameterType="com.gushuai.ssm.pojo.User">
+       UPDATE user set username = #{username},password = #{password} WHERE id = #{id}
+    </update>
+
+
+    <update id="updateUserInfo" parameterType="com.gushuai.ssm.pojo.User">
+        UPDATE user set username = #{username},password = #{password}, address = #{address}, telPhone = #{telPhone} WHERE id = #{id}
+    </update>
+
+
+
+    <select id="queryUsernameById" parameterType="int" resultType="java.lang.String">
+        SELECT username FROM user WHERE id = #{value}
+    </select>
+
+    <select id="queryPwdById" parameterType="int" resultType="java.lang.String">
+        SELECT password FROM user WHERE id = #{value}
+    </select>
+
+    <select id="queryIdByUsername" parameterType="java.lang.String" resultType="int">
+        SELECT id FROM user WHERE username = #{username}
+    </select>
+
+
+
+    <select id="queryAddress" parameterType="int" resultType="java.lang.String">
+        SELECT address FROM user WHERE id = #{id}
+    </select>
+
+
+    <select id="queryNumber" parameterType="int" resultType="int">
+        SELECT telPhone FROM user WHERE id = #{id}
+    </select>
+
+
+</mapper>
